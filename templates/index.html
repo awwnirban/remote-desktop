@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Remote Desktop Viewer</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #screen {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+
+<body>
+    <img id="screen" src="" alt="Remote screen" />
+
+    <script>
+        const socket = io();
+        const screenImg = document.getElementById('screen');
+
+        socket.on('screen_update', data => {
+            screenImg.src = 'data:image/jpeg;base64,' + data;
+        });
+
+        screenImg.addEventListener('mousemove', e => {
+            const rect = screenImg.getBoundingClientRect();
+            const x = Math.round((e.clientX - rect.left) / rect.width * window.screen.width);
+            const y = Math.round((e.clientY - rect.top) / rect.height * window.screen.height);
+            socket.emit('mouse_event', { type: 'move', x, y });
+        });
+
+        screenImg.addEventListener('click', e => {
+            socket.emit('mouse_event', { type: 'click', button: 'left' });
+        });
+
+        screenImg.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            socket.emit('mouse_event', { type: 'click', button: 'right' });
+        });
+    </script>
+</body>
+
+</html>
