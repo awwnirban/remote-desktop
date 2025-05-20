@@ -1,51 +1,37 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Remote Desktop Viewer</title>
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-
-        #screen {
-            width: 100vw;
-            height: 100vh;
-            object-fit: contain;
-            cursor: crosshair;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remote Desktop</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <img id="screen" src="" alt="Remote screen" />
+    <!-- --------------------Nav Bar---------------- -->
+    <nav>
+        <div class="logo">
+            <span>REMOTE DESKTOP APP</span>
+        </div>
+        <div class="right">
+            <ul>
+                <a href="">
+                    <li>Overview</li>
+                </a>
+                <a href="">
+                    <li>Git Link</li>
+                </a>
+            </ul>
+        </div>
+    </nav>
 
-    <script>
-        const socket = io();
-        const screenImg = document.getElementById('screen');
-
-        socket.on('screen_update', data => {
-            screenImg.src = 'data:image/jpeg;base64,' + data;
-        });
-
-        screenImg.addEventListener('mousemove', e => {
-            const rect = screenImg.getBoundingClientRect();
-            const x = Math.round((e.clientX - rect.left) / rect.width * window.screen.width);
-            const y = Math.round((e.clientY - rect.top) / rect.height * window.screen.height);
-            socket.emit('mouse_event', { type: 'move', x, y });
-        });
-
-        screenImg.addEventListener('click', e => {
-            socket.emit('mouse_event', { type: 'click', button: 'left' });
-        });
-
-        screenImg.addEventListener('contextmenu', e => {
-            e.preventDefault();
-            socket.emit('mouse_event', { type: 'click', button: 'right' });
-        });
-    </script>
+    <!-- --------------------SECTION---------------- -->
+    <section class="container">
+        <div class="box">
+            Server
+        </div>
+        <div class="box">
+            Client
+        </div>
+    </section>
 </body>
-
 </html>
