@@ -55,7 +55,7 @@ nav .logo {
 background-color: rgba(146, 136, 194, 0.3);
     border: 1px solid white;
     width: 18vw;
-    border-radius: 20px;
+    border-radius: 40px;
     text-align: center;
 display: flex;
     justify-content: center;
@@ -72,7 +72,6 @@ display: flex;
 }
 
 .container .box i {
-    border: 0.6px solid white;
     font-size: 2.5rem;
     color: white;
     padding: 15px 30px;
@@ -90,6 +89,7 @@ display: flex;
     color: white;
     background-color: rgb(131, 3, 3);
     font-size: 1rem;
-    border-radius: 15%;
+    border-radius: 25px;
     padding: 8px;
+    width: 80px;
 }
